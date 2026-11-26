@@ -6,11 +6,11 @@ let corridaFinalizada = false;
 let vencedor = null;
 
 const nomes = [
-  "CARRO VERMELHO",
   "CARRO AZUL",
-  "CARRO AMARELO",
-  "CARRO BRANCO",
-  "CARRO LARANJA"
+  "CARRO VERDE",
+  "CARRO ROSA",
+  "CARRO VERMELHO E PRETO",
+  "CARRO ROXO"
 ];
 
 // Sortear vencedor
