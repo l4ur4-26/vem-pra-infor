@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grande Corrida</title>
+<style>
+body {
+  background: #151515;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+}
+h1 { color: gold; }
+.pista {
+  background: #444;
+  padding: 15px;
+  border: 5px solid white;
+  border-radius: 10px;
+}
+.faixa {
+  height: 65px;
+  border-bottom: 3px dashed white;
+  position: relative;
+}
+.carro {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  font-size: 38px;
+  transition: left 0.1s linear;
+}
+button {
+  padding: 15px 35px;
+  margin: 20px;
+  font-size: 20px;
+  background: gold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+#resultado {
+  font-size: 26px;
+  color: gold;
+  margin: 20px;
+}
+</style>
+</head>
+<body>
+
+<h1>🏁 GRANDE CORRIDA 🏁</h1>
+<h3>5 carros disputando o primeiro lugar!</h3>
+
+<div class="pista" id="pista">
+  <div class="faixa"><span class="carro">🏎️</span></div>
+  <div class="faixa"><span class="carro">🚗</span></div>
+  <div class="faixa"><span class="carro">🏎️</span></div>
+  <div class="faixa"><span class="carro">🚙</span></div>
+  <div class="faixa"><span class="carro">🏁</span></div>
+</div>
+
+<button onclick="iniciar()">INICIAR CORRIDA</button>
+
+<div id="resultado">Aguardando largada...</div>
+
+<script>
+let correndo = false;
+
+function iniciar() {
+  if (correndo) return;
+  correndo = true;
+
+  const carros = document.querySelectorAll(".carro");
+  const pista = document.getElementById("pista");
+  const resultado = document.getElementById("resultado");
+
+  let posicoes = [0,0,0,0,0];
+  let velocidades = carros.length;
+  let vencedor = -1;
+
+  resultado.innerHTML = "🚦 LARGARAM!";
+
+  const largura = pista.clientWidth - 85;
+
+  let corrida = setInterval(() => {
+
+    for (let i = 0; i < 5; i++) {
+      // Velocidades aleatórias
+      posicoes[i] += Math.random() * 5 + 1;
+
+      if (posicoes[i] >= largura) {
+        posicoes[i] = largura;
+      }
+
+      carros[i].style.left = posicoes[i] + "px";
+    }
+
+    // Verifica quem cruzou a chegada
+    for (let i = 0; i < 5; i++) {
+      if (posicoes[i] >= largura) {
+        vencedor = i;
+        break;
+      }
+    }
+
+    if (vencedor !== -1) {
+      clearInterval(corrida);
+      correndo = false;
+
+      resultado.innerHTML =
+        "🏆 VENCEDOR: CARRO " +
+        (vencedor + 1) + "! 🏆";
+    }
+
+  }, 100);
+}
+</script>
+
+</body>
+</html>
